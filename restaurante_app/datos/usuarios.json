@@ -1,0 +1,18 @@
+[
+    {
+        "identificacion": "0102030405",
+        "nombre": "Isa Paez",
+        "correo": "isap@correo.com",
+        "celular": "0991234567",
+        "usuario": "isa",
+        "contrasena": "hope2"
+    },
+    {
+        "identificacion": "0504030201",
+        "nombre": "Sebas Morillo",
+        "correo": "sebasmor@correo.com",
+        "celular": "0987654321",
+        "usuario": "sebas",
+        "contrasena": "hope1"
+    }
+]
