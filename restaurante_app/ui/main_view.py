@@ -12,7 +12,7 @@ from tkinter import messagebox, ttk
 
 class MainView(tk.Frame):
     def __init__(self, master, restaurante_servicio, usuario_actual, al_cerrar_sesion):
-        super().__init__(master, bg="#f7fafc")
+        super().__init__(master, bg="#fff5f9")
         self.restaurante_servicio = restaurante_servicio
         self.usuario_actual = usuario_actual
         self.al_cerrar_sesion = al_cerrar_sesion
@@ -38,25 +38,25 @@ class MainView(tk.Frame):
     # Configuracion general: colores, estilos e iconos.
     # -------------------------------------------------------------------------
     def definir_estilos(self):
-        self.color_fondo = "#f7fafc"
+        self.color_fondo = "#fff5f9"
         self.color_panel = "#ffffff"
-        self.color_encabezado = "#1f2a44"
-        self.color_texto = "#243447"
-        self.color_secundario = "#dbeafe"
-        self.color_resaltado = "#2563eb"
+        self.color_encabezado = "#000000"
+        self.color_texto = "#1a1a1a"
+        self.color_secundario = "#ffd9e8"
+        self.color_resaltado = "#EF007E"
 
         estilo = ttk.Style()
         estilo.theme_use("clam")
         estilo.configure(
             "MenuApp.TButton",
-            background="#334155",
+            background="#1a1a1a",
             foreground="#ffffff",
             font=("Arial", 10, "bold"),
             padding=(12, 10),
             borderwidth=0,
             anchor="w",
         )
-        estilo.map("MenuApp.TButton", background=[("active", "#475569")])
+        estilo.map("MenuApp.TButton", background=[("active", "#333333")])
         estilo.configure(
             "MenuActivo.TButton",
             background=self.color_resaltado,
@@ -66,16 +66,16 @@ class MainView(tk.Frame):
             borderwidth=0,
             anchor="w",
         )
-        estilo.map("MenuActivo.TButton", background=[("active", "#1d4ed8")])
+        estilo.map("MenuActivo.TButton", background=[("active", "#c2005f")])
         estilo.configure(
             "Secundario.TButton",
-            background="#1f2a44",
+            background="#1a1a1a",
             foreground="#ffffff",
             font=("Arial", 10, "bold"),
             padding=(10, 7),
             borderwidth=0,
         )
-        estilo.map("Secundario.TButton", background=[("active", "#334155")])
+        estilo.map("Secundario.TButton", background=[("active", "#333333")])
         estilo.configure(
             "Accion.TButton",
             background=self.color_resaltado,
@@ -84,16 +84,16 @@ class MainView(tk.Frame):
             padding=(10, 7),
             borderwidth=0,
         )
-        estilo.map("Accion.TButton", background=[("active", "#1d4ed8")])
+        estilo.map("Accion.TButton", background=[("active", "#c2005f")])
         estilo.configure(
             "Eliminar.TButton",
-            background="#e11d48",
+            background="#8f0047",
             foreground="#ffffff",
             font=("Arial", 10, "bold"),
             padding=(10, 7),
             borderwidth=0,
         )
-        estilo.map("Eliminar.TButton", background=[("active", "#be123c")])
+        estilo.map("Eliminar.TButton", background=[("active", "#6e0037")])
         estilo.configure(
             "Treeview.Heading",
             background=self.color_secundario,
@@ -102,23 +102,13 @@ class MainView(tk.Frame):
         )
 
     def cargar_icono(self, nombre_archivo):
-        # Carga un icono desde assets/icons si existe. Si no existe (o la
-        # carpeta assets no esta presente), se continua sin icono: los
-        # botones funcionan igual, solo se muestran con texto.
-        if nombre_archivo in self.iconos:
-            return self.iconos[nombre_archivo]
-
         ruta_base = Path(__file__).resolve().parent.parent
         ruta_icono = ruta_base / "assets" / "icons" / nombre_archivo
 
         if not ruta_icono.exists():
             return None
 
-        try:
-            icono = tk.PhotoImage(file=str(ruta_icono))
-        except tk.TclError:
-            return None
-
+        icono = tk.PhotoImage(file=str(ruta_icono))
         self.iconos[nombre_archivo] = icono
         return icono
 
@@ -150,17 +140,17 @@ class MainView(tk.Frame):
 
         tk.Label(
             frame_sidebar, text=self.usuario_actual.nombre, bg=self.color_encabezado,
-            fg="#dbeafe", font=("Arial", 10), wraplength=150, justify="left",
+            fg="#f2b8d4", font=("Arial", 10), wraplength=150, justify="left",
         ).pack(anchor="w", pady=(0, 24))
 
         self.crear_boton_menu(frame_sidebar, "Inicio", self.mostrar_inicio, "home.png")
         self.crear_boton_menu(frame_sidebar, "Usuarios", self.mostrar_usuarios, "users.png")
-        self.crear_boton_menu(frame_sidebar, "Productos", self.mostrar_productos, "products.png")
+        self.crear_boton_menu(frame_sidebar, "Productos", self.mostrar_productos, "productos.png")
 
         tk.Frame(frame_sidebar, bg=self.color_encabezado).pack(fill="both", expand=True)
 
         self.crear_boton(
-            frame_sidebar, "Cerrar sesion", self.cerrar_sesion, "Eliminar.TButton", "logout.png",
+            frame_sidebar, "Cerrar sesión", self.cerrar_sesion, "Eliminar.TButton", "logout.png",
         ).pack(fill="x", pady=(16, 0))
 
         frame_principal = tk.Frame(self, bg=self.color_fondo)
@@ -198,7 +188,7 @@ class MainView(tk.Frame):
         assert self.etiqueta_estado is not None
         self.etiqueta_estado.config(
             text=(
-                f"Productos: {self.restaurante_servicio.contar_productos()} | "
+                f"Productos: {self.restaurante_servicio.cantidad_productos()} | "
                 f"Usuarios: {self.restaurante_servicio.cantidad_usuarios()} | "
                 "Datos JSON locales"
             )
@@ -227,7 +217,7 @@ class MainView(tk.Frame):
         resumen = tk.Frame(self.contenido, bg=self.color_fondo)
         resumen.pack(fill="x")
         self.crear_tarjeta_resumen(resumen, "Usuarios registrados", self.restaurante_servicio.cantidad_usuarios())
-        self.crear_tarjeta_resumen(resumen, "Productos registrados", self.restaurante_servicio.contar_productos())
+        self.crear_tarjeta_resumen(resumen, "Productos registrados", self.restaurante_servicio.cantidad_productos())
 
     def crear_tarjeta_resumen(self, contenedor, titulo, valor):
         tarjeta = tk.Frame(contenedor, bg=self.color_panel, padx=18, pady=16)

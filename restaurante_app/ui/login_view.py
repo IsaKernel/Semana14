@@ -11,7 +11,7 @@ from tkinter import ttk
 
 class LoginView(tk.Frame):
     def __init__(self, master, restaurante_servicio, al_iniciar_sesion):
-        super().__init__(master, bg="#eef3f8")
+        super().__init__(master, bg="#fff5f9")
         self.restaurante_servicio = restaurante_servicio
         self.al_iniciar_sesion = al_iniciar_sesion
 
@@ -28,13 +28,13 @@ class LoginView(tk.Frame):
         estilo.theme_use("clam")
         estilo.configure(
             "Login.TButton",
-            background="#2563eb",
+            background="#EF007E",
             foreground="#ffffff",
             font=("Arial", 11, "bold"),
             padding=(14, 8),
             borderwidth=0,
         )
-        estilo.map("Login.TButton", background=[("active", "#1d4ed8")])
+        estilo.map("Login.TButton", background=[("active", "#c2005f")])
 
     def cargar_logo(self):
         # Carga el logo desde assets/logo/logo.png usando una ruta
@@ -61,17 +61,17 @@ class LoginView(tk.Frame):
             tk.Label(contenedor, image=logo, bg="#ffffff").pack(pady=(0, 12))
 
         tk.Label(
-            contenedor, text="Restaurante", bg="#ffffff", fg="#1f2a44",
+            contenedor, text="Restaurante", bg="#ffffff", fg="#000000",
             font=("Arial", 22, "bold"),
         ).pack(pady=(0, 6))
 
         tk.Label(
-            contenedor, text="Inicio de sesión", bg="#ffffff", fg="#516173",
+            contenedor, text="Inicio de sesión", bg="#ffffff", fg="#4a4a4a",
             font=("Arial", 11),
         ).pack(pady=(0, 22))
 
         tk.Label(
-            contenedor, text="Usuario", bg="#ffffff", fg="#243447",
+            contenedor, text="Usuario", bg="#ffffff", fg="#1a1a1a",
             font=("Arial", 10, "bold"),
         ).pack(anchor="w")
 
@@ -80,7 +80,7 @@ class LoginView(tk.Frame):
         self.usuario_entry.focus()
 
         tk.Label(
-            contenedor, text="Contraseña", bg="#ffffff", fg="#243447",
+            contenedor, text="Contraseña", bg="#ffffff", fg="#1a1a1a",
             font=("Arial", 10, "bold"),
         ).pack(anchor="w")
 
@@ -89,7 +89,7 @@ class LoginView(tk.Frame):
         self.contrasena_entry.bind("<Return>", lambda evento: self.iniciar_sesion())
 
         self.mensaje_error = tk.Label(
-            contenedor, text="", bg="#ffffff", fg="#b42318", font=("Arial", 10),
+            contenedor, text="", bg="#ffffff", fg="#c2005f", font=("Arial", 10),
         )
         self.mensaje_error.pack(pady=(0, 14))
 

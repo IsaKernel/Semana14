@@ -19,5 +19,12 @@
         "categoria": "Entradas",
         "precio": 3.0,
         "stock": 15
+    },
+    {
+        "codigo": "P004",
+        "nombre": "Guayusa",
+        "categoria": "Bebidas",
+        "precio": 2.6,
+        "stock": 10
     }
 ]
